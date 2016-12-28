@@ -62,3 +62,7 @@ jar {
     baseName 'demoUbi186'
     version '1.0'
 }
+
+bootRun {
+    addResources = true
+}
