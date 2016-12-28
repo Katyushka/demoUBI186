@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Рубленый шрифт */
+        }
+        .errors {
+            font-size: 200%; /* Размер шрифта в процентах */
+            font-family: serif; /* Шрифт с засечками */
+            position: relative; /* Относительное позиционирование */
+            top: 5px; /* Сдвиг сверху */
+
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div th:fragment="userForm">
+        <form id="userForm" name="userForm" th:object="${user}" method="post" data-toggle="validator"
+              action="#" th:action="@{/users/save}" class="pure-form pure-form-aligned" role="form">
+
+            <fieldset>
+                <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="login">Логин: </label>
+                    <input id="login" type="text" required="required" th:field="*{login}" class="form-control" maxlength="30" />
+                    <p><span class="errors" id="emptyLogin" name="emptyLogin" style="display:none">Заполните это поле.</span></p>
+                </div>
+
+                <div class="form-group" th:classappend="${password}">
+                    <label for="pwd">Пароль: </label>
+                    <input id="pwd" type="text" required="required" th:field="*{password}" class="form-control" maxlength="30" />
+                    <span class="errors" id="emptyPwd" name = "emptyPwd" style="display:none">Заполните это поле.</span>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="role">Роль:</label>
+                    <select th:field="*{role}" id="role" class="form-control">
+                        <option th:value="ROLE_USER" th:text="ROLE_USER"/>
+                    </select>
+                </div>
+                <input id="id" type="hidden" th:field="*{id}" class="form-control"/>
+
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>

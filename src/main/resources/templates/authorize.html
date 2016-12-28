@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>UBI186</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.0.3/css/font-awesome.css}"
+          href="../../css/font-awesome-4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" th:href="@{/css/jquery-ui-1.10.4.custom.css}"
+          href="../../css/jquery-ui-1.10.4.custom.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}"
+          href="../../css/common.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"
+          href="../../css/style.css" />
+    <script th:src="@{/js/lib/jquery-1.10.2.js}" src="../../js/lib/jquery-1.10.2.js"/>
+    <script th:src="@{/js/lib/jquery-ui-1.10.4.custom.js}" src="../../js/lib/jquery-ui-1.10.4.custom.js"/>
+
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header">&nbsp;</div>
+<form th:action="@{/authorize}" th:method="get">
+        <h3 sec:authorize="hasRole('ROLE_USER')" align="center">Вы зашли под пользователем
+            <br>
+            </br>
+            Для начала работы нажмите на кнопку "Демонстрация"
+            <br>
+            </br>
+            Для выхода из системы нажмите на кнопку "Выйти"
+        </h3>
+        <h3 sec:authorize="hasRole('ROLE_ADMIN')" align="center">Вы зашли под администратором
+            <br>
+            </br>
+            Для просмотра списка пользователей нажмите на кнопку "Пользователи"
+            <br>
+            </br>
+            Для просмотра списка сайтов нажмите на кнопку "Сайты"
+            <br>
+            </br>
+            Для выхода из системы нажмите на кнопку "Выйти"
+
+        </h3>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Профиль</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/font-awesome-4.0.3/css/font-awesome.css}"
+          href="../../css/font-awesome-4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" th:href="@{/css/jquery-ui-1.10.4.custom.css}"
+          href="../../css/jquery-ui-1.10.4.custom.css" />
+    <link rel="stylesheet" th:href="@{/css/common.css}"
+          href="../../css/common.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"
+          href="../../css/style.css" />
+    <script th:src="@{/js/lib/jquery-1.10.2.js}" src="../../js/lib/jquery-1.10.2.js"/>
+    <script th:src="@{/js/lib/jquery-ui-1.10.4.custom.js}" src="../../js/lib/jquery-ui-1.10.4.custom.js"/>
+
+</head>
+<body>
+    <div th:replace="fragments/header :: header">&nbsp;</div>
+
+    <h2 align="center">
+        Информацию об угрозе УБИ.186 Вы можите получить, щелкнув мышкой
+        <a href="http://www.bdu.fstec.ru/threat/ubi.186" target="_blank">здесь</a>
+    </h2>
+    <br>
+    </br>
+    <form th:action="@{/profile}" th:method="post">
+        <div class="col-md-6 col-lg-6">
+            <h3> Введите адрес сайта, который Вы хотите проверить на наличие вредоносных ссылок, затем нажмите на кнопку "Проверить".</h3>
+            <br>
+            </br>
+        </div>
+        <div class="row" >
+            <div class="col-md-4">
+                    <h3> Выберите адрес сайта из списка </h3>
+
+                <select name="checkedSiteName" class="selectpicker" data-live-search="true">
+                    <option th:each="checkedSite : ${checkedSites}" th:value="${checkedSite.name}"
+                            th:text="${checkedSite.name}">Name
+                    </option>
+                </select>
+                <h3> Или введите другой адрес сайта </h3>
+
+            <input  style="width: 100%; height: 100%" name = "url" th:type="text" maxlength="100" />
+            </div>
+            <div class="col-md-4">
+                <button class="form-control btn btn-success" name="check" type="submit" style="margin-top: 15px;">
+                    Проверить
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+    <th:block th:if="${unknownHost}">
+        <h3 style="margin-left: 15pt; color: green;" th:text="${checkedSiteName}">
+        </h3>
+        <div class="col-md-6 col-lg-6">
+            <h3 style="color: green;"> Не существует введенного сайта. Введите кооректный адрес.
+            </h3>
+        </div>
+    </th:block>
+
+    <th:block th:if="${checkIsPress}">
+        <div class="col-md-6 col-lg-6">
+            <h3 style="color: green;">Проверяемый сайт: </h3>
+            <h3 style="color: green;" th:text="${checkedSiteName}">
+            </h3>
+        </div>
+        <div th:if="!${isEmpty}">
+
+            <div class="col-md-6 col-lg-6">
+                <h3 style="color: green;">На введенном сайте обнаружены следующие вредоносные ссылки:
+                </h3>
+            </div>
+            <div class="col-md-6 col-lg-3" th:each="site : ${sites}">
+                <h3 style="color: green;" th:text="${site.name}" ></h3>
+            </div>
+        </div>
+
+
+        <div th:if="${isEmpty}">
+            <div class="col-md-6 col-lg-6">
+                <h3 style="color: green;">На введенном сайте не обнаружены вредоносные ссылки
+                </h3>
+                <h3 style="color: green;">Вы можете перейти на сайт, щелкнув мышкой
+                <a th:href="${correctUrl}" th:target="_blank"> здесь</a> </h3>
+            </div>
+        </div>
+    </th:block>
+
+</body>
+</html>
