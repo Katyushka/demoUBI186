@@ -12,12 +12,11 @@
 
 <!-- Navbar -->
 <div th:fragment="header">
-
     <div class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
             </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <!--<li ><a th:href="@{/}" href="home.html"> Основная страница </a></li>-->
                     <li sec:authorize="isAuthenticated()"><a th:href="@{/}" href="#"> О программе </a></li>
